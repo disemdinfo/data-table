@@ -50,17 +50,9 @@ function getState(props) {
   const hasGroup = Object.keys(props.columns).some(key => props.columns[key].columns);
   const columns = clone(prepareColumns({ columns: props.columns, hasGroup }));
 
-  // Object.keys(columns).forEach((key) => {
-  //   const column = columns[key];
-  //   rows.forEach((row) => {
-  //     row[key] = renderCell({ column, row });
-  //   });
-  // });
+  const hasSearch = hasAttribute(columns, 'search');  
 
-  const hasSearch = hasAttribute(columns, 'search');
-  const hasHide = hasAttribute(columns, 'allowsHide');
-
-  const menuHeight = props.menuHeight || ((count || hasHide || exportCsv || title || actions) ? 'auto' : props.menuHeight);
+  const menuHeight = props.menuHeight || ((count || exportCsv || title || actions) ? 'auto' : props.menuHeight);
 
   return {
     columns,
@@ -69,8 +61,7 @@ function getState(props) {
     startRows: rows.slice(),
     config: {
       hasGroup,
-      hasSearch,
-      hasHide,
+      hasSearch,      
       menuHeight,
     },
   };
@@ -83,10 +74,7 @@ class DataTable extends Component {
     this.state = getState(props);
 
     this.onSearch = this.onSearch.bind(this);
-    this.onSort = this.onSort.bind(this);
-    this.onHide = this.onHide.bind(this);
-    this.onReset = this.onReset.bind(this);
-    this.onResize = this.onResize.bind(this);
+    this.onSort = this.onSort.bind(this);            
     this.renderGroup = this.renderGroup.bind(this);
     this.renderColumn = this.renderColumn.bind(this);
   }
@@ -126,35 +114,6 @@ class DataTable extends Component {
     this.setState({ rows: sort(rows, column.key, column.sorted) });
   }
 
-  onHide(column) {
-    const { key, parent } = column;
-    const nextColumns = this.state.columns;
-
-    if (parent) {
-      delete nextColumns[parent].columns[key];
-    } else {
-      delete nextColumns[key];
-    }
-
-    this.setState({ columns: nextColumns });
-  }
-
-  onReset() {
-    const { startColumns, startRows } = this.state;
-    this.setState({
-      columns: clone(startColumns),
-      rows: startRows,
-    });
-  }
-
-  onResize(newColumnWidth, columnKey) {
-    this.setState(({ columns }) => {
-      const column = columns[columnKey];
-      column.width = newColumnWidth;
-      return { columns };
-    });
-  }
-
   renderGroup({ columns, label, headerStyle, ...props }) {
     const groupStyle = label ?
       {
@@ -192,8 +151,7 @@ class DataTable extends Component {
             column={column}
             style={headerStyle}
             onSearch={this.onSearch}
-            onSort={this.onSort}
-            onHide={this.onHide}
+            onSort={this.onSort}            
           >
             {label}
           </Header>
@@ -236,8 +194,7 @@ class DataTable extends Component {
         rows={rows}
         columns={columns}
         config={config}
-        height={height}
-        onReset={this.onReset}
+        height={height}        
       >
         <AutoSizer key="table">
           {({ width }) => (
@@ -246,8 +203,7 @@ class DataTable extends Component {
                 {...this.props}
                 width={width}
                 rowsCount={rows.length}
-                onContentHeightChange={contentHeight => this.setState({ height: contentHeight })}
-                onColumnResizeEndCallback={this.onResize}
+                onContentHeightChange={contentHeight => this.setState({ height: contentHeight })}                
               >
                 {this.renderColumns()}
               </Table>

@@ -32,7 +32,7 @@ const style = {
 const Image = props => (<img {...props} style={style.action} />);
 
 const Menu = (props) => {
-  const { rows, columns, onReset, hasSearch, hasHide, reset, exportCsv, actions, menuHeight, title, count } = props;
+  const { rows, columns, hasSearch, reset, exportCsv, actions, menuHeight, title, count } = props;
   return (
     <div style={{ ...style.container, height: menuHeight }}>
       <div style={style.title}>{title}</div>
@@ -40,9 +40,6 @@ const Menu = (props) => {
       <div style={style.actions}>
         {actions.map(action => <div style={style.action}>{action}</div>)}
 
-        {(hasHide || reset) && (
-          <Image src={iconRefresh} title="Atualizar" onClick={onReset} />
-        )}
         {exportCsv && (
           <Image src={iconExport} title="Exportar" onClick={() => (props.onExportCsv ? props.onExportCsv({ rows, columns }) : onExportCsv({ rows, columns }))} />
         )}
@@ -57,10 +54,8 @@ const Menu = (props) => {
 Menu.propTypes = {
   rows: PropTypes.array.isRequired,
   columns: PropTypes.object.isRequired,
-  exportCsv: PropTypes.bool,
-  onReset: PropTypes.func.isRequired,
-  hasSearch: PropTypes.bool,
-  hasHide: PropTypes.bool,
+  exportCsv: PropTypes.bool,  
+  hasSearch: PropTypes.bool,  
   menuHeight: PropTypes.number,
   title: PropTypes.string,
   actions: PropTypes.array,
@@ -69,8 +64,7 @@ Menu.propTypes = {
 Menu.defaultProps = {
   rows: [],
   columns: {},
-  hasSearch: false,
-  hasHide: false,
+  hasSearch: false,  
   menuHeight: 0,
   title: null,
   exportCsv: false,

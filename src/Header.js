@@ -55,8 +55,7 @@ class Header extends Component {
   constructor(props) {
     super(props);
 
-    this.onSort = this.onSort.bind(this);
-    this.onHide = this.onHide.bind(this);
+    this.onSort = this.onSort.bind(this);    
   }
 
   onSort(e) {
@@ -64,14 +63,6 @@ class Header extends Component {
 
     if (this.props.onSort) {
       this.props.onSort(this.props.column);
-    }
-  }
-
-  onHide(e) {
-    e.preventDefault();
-
-    if (this.props.onHide) {
-      this.props.onHide(this.props.column);
     }
   }
 
@@ -91,9 +82,6 @@ class Header extends Component {
     const sortable = column.sortable !== false;
     const sortIcon = column.sorted !== undefined && sortable ? column.sorted ? ' ↑' : ' ↓' : '';
 
-    const allowsHide = column.allowsHide === true;
-    const hideIcon = allowsHide && (<span style={styles.hide} onClick={this.onHide} title="Ocultar Coluna" >x</span>);
-
     const onClick = sortable ? this.onSort : null;
     const labelStyle = { padding: 8, cursor: sortable ? 'pointer' : null };
 
@@ -103,8 +91,7 @@ class Header extends Component {
 
     return (
       <div style={{ ...styles.container, ...style, height }}>
-        <div style={{ ...styles.label, width, height: labelHeight }}>
-          {hideIcon}
+        <div style={{ ...styles.label, width, height: labelHeight }}>          
           {label}
           {sortIcon}
         </div>
@@ -124,12 +111,11 @@ class Header extends Component {
 Header.propTypes = {
   children: PropTypes.node.isRequired,
   column: PropTypes.object.isRequired,
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
+  width: PropTypes.number,
+  height: PropTypes.number,
   style: PropTypes.object,
   config: PropTypes.object.isRequired,
-  onSort: PropTypes.func,
-  onHide: PropTypes.func,
+  onSort: PropTypes.func,  
   onSearch: PropTypes.func,
 };
 
@@ -137,9 +123,10 @@ Header.defaultProps = {
   style: {},
   config: {},
   column: {},
-  onSort: null,
-  onHide: null,
+  onSort: null,  
   onSearch: null,
+  width: null,
+  height: null,
 };
 
 export default Header;
