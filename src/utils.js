@@ -139,20 +139,20 @@ export function sort(array, key, direction) {
   return array;
 }
 
-export function getColumns(columns) {
-  const nextColumns = {};
-  Object.keys(columns).forEach((key) => {
-    const column = columns[key];
+export function getColumns(c) {
+  const columns = {};
+  Object.keys(c).forEach((key) => {
+    const column = c[key];
     if (column.columns) {
       Object.keys(column.columns).forEach((key) => {
         const group = column.columns[key];
-        nextColumns[key] = group;
+        columns[key] = group;
       });
     } else {
-      nextColumns[key] = column;
+      columns[key] = column;
     }
   });
-  return nextColumns;
+  return columns;
 }
 
 export function exportCsv(data, filename = 'data-csv') {

@@ -3,56 +3,57 @@ import PropTypes from 'prop-types';
 import { Table, ColumnGroup, Column } from 'fixed-data-table-2';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import clone from 'lodash/clone';
-// import Container from './Container';
+import Container from './Container';
 import Header from './Header';
 import Cell from './Cell';
 import { getColumns, filter, sort, renderCell } from './utils';
 
 import './data-table.css';
 
-function prepareColumns({ columns, hasGroup, parent }) {
-  const nextColums = {};
-
-  Object.keys(columns).filter(key => columns[key].hide !== true).forEach((key) => {
-    let column = columns[key];
-    const params = {
-      key,
-      columnKey: key,
-      parent,
-      type: (column.type || 'STRING').toUpperCase(),
-      width: column.width || 100,
-      flexGrow: !column.width ? 1 : null,
-    };
-
-    if (column.columns) {
-      column.columns = prepareColumns({ columns: column.columns, hasGroup: false, parent: key });
-    } else if (hasGroup && !column.columns) {
-      column = { columns: { [key]: { ...column, ...params } } };
-    }
-
-    nextColums[key] = {
-      ...column,
-      ...params,
-    };
-  });
-
-  return nextColums;
+function prepareColumn(column, key) {
+  return { 
+    ...column,  
+    key,      
+    type: column.type || 'STRING',
+    width: column.width || 100,
+    flexGrow: !column.width ? 1 : null,
+  };
 }
 
-function hasAttribute(originalColumns, attribute) {
-  const columns = getColumns(originalColumns);
-  return Object.keys(columns).some(key => getColumns(columns)[key][attribute]);
+function prepareColumns(c) {
+  const colums = {};
+
+  Object.keys(c).filter(key => c[key].hide !== true).forEach((key) => {
+    const column = c[key];    
+    colums[key] = prepareColumn(column, key);
+  });
+
+  return colums;
+}
+
+function prepareGroupColumns(c) {
+  const colums = {};
+
+  Object.keys(c).filter(key => c[key].hide !== true).forEach((key) => {
+    let column = c[key];   
+
+    if (column.columns) {
+      column.columns = prepareColumns(column.columns);
+    } else {
+      column = { columns: { [key]: prepareColumn(column, key) } };
+    }
+
+    colums[key] = column;
+  });
+
+  return colums;
 }
 
 function getState(props) {
-  const { rows, title, actions, exportCsv, count } = props;
+  const { rows, actions, exportCsv, count } = props;
 
   const hasGroup = Object.keys(props.columns).some(key => props.columns[key].columns);
-  const columns = clone(prepareColumns({ columns: props.columns, hasGroup }));
-
-  const hasSearch = hasAttribute(columns, 'search');  
-
-  const menuHeight = props.menuHeight || ((count || exportCsv || title || actions) ? 'auto' : props.menuHeight);
+  const columns = clone(hasGroup ? prepareGroupColumns(props.columns) : prepareColumns(props.columns));
 
   return {
     columns,
@@ -60,13 +61,10 @@ function getState(props) {
     rows,
     startRows: rows.slice(),
     config: {
-      hasGroup,
-      hasSearch,      
-      menuHeight,
+      hasGroup,      
     },
   };
 }
-
 class DataTable extends Component {
   constructor(props) {
     super(props);
@@ -115,19 +113,21 @@ class DataTable extends Component {
   }
 
   renderGroup({ columns, label, headerStyle, ...props }) {
-    const groupStyle = label ?
-      {
+    if(label){
+      headerStyle = {
+        ...headerStyle,
         borderRightWidth: 1,
         borderLeftWidth: 1,
         borderRightStyle: 'solid',
         borderLeftStyle: 'solid',
         borderColor: '#d3d3d3',
-      } : {};
+      }
+    }    
 
     return (
       <ColumnGroup
         {...props}
-        header={<Header style={{ ...headerStyle, ...groupStyle }}>{label}</Header>}
+        header={<Header column={{ label, headerStyle }}>{label}</Header>}
       >
         {Object.keys(columns).map((key) => {
           const column = columns[key];
@@ -138,18 +138,15 @@ class DataTable extends Component {
   }
 
   renderColumn(column) {
-    const { rows, config } = this.state;
-    const { label, headerStyle } = column;
+    const { rows } = this.state;
+    const { label } = column;
 
     return (
       <Column
-        {...column}
-        isResizable
+        {...column}        
         header={
-          <Header
-            config={config}
-            column={column}
-            style={headerStyle}
+          <Header            
+            column={column}            
             onSearch={this.onSearch}
             onSort={this.onSort}            
           >
@@ -160,9 +157,9 @@ class DataTable extends Component {
           <Cell
             {...cellProps}
             rowIndex={rowIndex}
-            onClick={this.props.onClick}
-            column={column}
             row={rows[rowIndex]}
+            column={column}
+            onClick={this.props.onClick} 
           />
 
         )}
@@ -186,31 +183,26 @@ class DataTable extends Component {
   }
 
   render() {
-    const { rows, columns, height, config } = this.state;
-
+    const { height, maxHeight, ...props } = this.props;
+    const { contentHeight } = this.state;        
     return (
-      <div
-        {...this.props}
-        rows={rows}
-        columns={columns}
-        config={config}
-        height={height}        
-      >
+      <Container 
+        {...props}
+        height={height || (contentHeight < maxHeight ? contentHeight : maxHeight)}        
+        >
         <AutoSizer key="table">
-          {({ width }) => (
-            <div>
+          {({ width }) => (          
               <Table
                 {...this.props}
                 width={width}
-                rowsCount={rows.length}
-                onContentHeightChange={contentHeight => this.setState({ height: contentHeight })}                
+                rowsCount={this.state.rows.length}
+                onContentHeightChange={contentHeight => this.setState({ contentHeight })}                
               >
                 {this.renderColumns()}
-              </Table>
-            </div>
+              </Table>          
           )}
         </AutoSizer>
-      </div>
+      </Container>
     );
   }
 }
@@ -223,13 +215,11 @@ DataTable.propTypes = {
 DataTable.defaultProps = {
   columns: {},
   rows: [],
-  maxHeight: 700,
-  menuHeight: 0,
+  maxHeight: 850,  
   headerHeight: 56,
-  groupHeaderHeight: 50,
   rowHeight: 40,
-  onClick: null,
-  isColumnResizing: false,
+  groupHeaderHeight: 40,
+  onClick: null,  
 };
 
 export default DataTable;

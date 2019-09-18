@@ -1,6 +1,5 @@
 import React from 'react';
-import Menu from './Menu';
-import ReactLoading from 'react-loading';
+// import ReactLoading from 'react-loading';
 
 const styles = {
   container: {
@@ -13,17 +12,13 @@ const styles = {
     justifyContent: 'center',
   },
 };
-const Container = (props) => {
-  const { children, maxHeight, width, height, style, config, loading } = props;
-  const { menuHeight } = config;
 
+const Container = (props) => {
+  const { children, width, height, style, loading } = props;  
   return (
-    <div style={{ width, ...style }}>
-      {!!menuHeight && <Menu {...props} {...config} />}
-      <div style={{ height: height < maxHeight ? height : maxHeight }}>
-        {children}
-      </div>
-      {loading && <div style={styles.loading}><ReactLoading type="spin" color="#1976d2" height={50} width={50} /></div>}
+    <div style={{ ...style, width, height }}>          
+        {children}      
+      {/* {loading && <div style={styles.loading}><ReactLoading type="spin" color="#1976d2" height={50} width={50} /></div>} */}
     </div>
   );
 };

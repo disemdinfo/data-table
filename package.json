@@ -4,7 +4,7 @@
   "description": "",
   "main": "lib/index.js",
   "scripts": {
-    "build": "babel src -d lib",        
+    "build": "babel src -d lib",
     "copy:css": "cd src && find -name '*.css' -exec cp --parents -prv {} ../lib \\;",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,12 +15,12 @@
     "@babel/core": "^7.6.0",
     "@babel/preset-env": "^7.6.0",
     "@babel/preset-react": "^7.0.0",
-    "babel-loader": "^8.0.6",    
+    "babel-eslint": "^10.0.3",
+    "babel-loader": "^8.0.6",
     "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "sass-loader": "^8.0.0"
+    "react-dom": "^16.9.0"
   },
-  "dependencies": {
+  "dependencies": {    
     "fixed-data-table-2": "^0.8.27",
     "moment": "^2.24.0",
     "react-virtualized": "^9.21.1"
