@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Cell } from 'fixed-data-table-2';
 
 const styles = {
   container: {
@@ -18,8 +17,9 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    fontSize: 12,
-    height: '100%',    
+    fontSize: 13,
+    height: '100%',
+    padding: 8  
   },
   search: {
     container:
@@ -68,9 +68,9 @@ class Header extends Component {
     
     return (
       <div style={{ ...styles.container, ...headerStyle, height }}>
-        <Cell style={styles.label}>          
-          <span onClick={onClick} style={{ cursor: sortable ? 'pointer' : null }}>{children}</span> {sortIcon}
-        </Cell>  
+        <div style={styles.label}>          
+          <span onClick={onClick} style={{ textAlign: 'center', cursor: sortable ? 'pointer' : null }}>{children}</span> {sortIcon}
+        </div>  
         {search &&
         <div style={styles.search.container}>     
           <input

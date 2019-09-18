@@ -1,5 +1,5 @@
 import React from 'react';
-// import ReactLoading from 'react-loading';
+import ReactLoading from 'react-loading';
 
 const styles = {
   container: {
@@ -13,12 +13,13 @@ const styles = {
   },
 };
 
+const Loading = () => <div style={styles.loading}><ReactLoading type="spokes" color="#626466" height={50} width={50} /></div>
+
 const Container = (props) => {
   const { children, width, height, style, loading } = props;  
   return (
-    <div style={{ ...style, width, height }}>          
-        {children}      
-      {/* {loading && <div style={styles.loading}><ReactLoading type="spin" color="#1976d2" height={50} width={50} /></div>} */}
+    <div style={{ ...style, width, height }}>             
+      {loading ? <Loading /> : children}
     </div>
   );
 };
