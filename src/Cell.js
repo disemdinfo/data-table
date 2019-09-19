@@ -28,8 +28,7 @@ function getJustifyContent(align){
 
 function getStyle({ column, columnKey, row, rowIndex, value, onClick  }) {
   const { type, styleRenderer } = column;  
-  let style = { ...styles.column, ...column.style };
-
+  let style = { ...styles.column, ...column.style };  
   if (styleRenderer) style = { ...style, ...styleRenderer({ value, column, columnKey, row, rowIndex }) };
   if (onClick) style = { ...style, cursor: 'pointer' };
 
