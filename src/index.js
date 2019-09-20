@@ -1,2 +1,5 @@
-import DataTable from './DataTable';
-export default DataTable;
+// import DataTable from './DataTable';
+// export default DataTable;
+module.exports = function() {
+    return 'teste' 
+}
