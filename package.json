@@ -2,6 +2,7 @@
   "name": "data-table",
   "version": "1.0.0",
   "description": "",
+  "private": false,
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src -d lib",
