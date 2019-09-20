@@ -3,29 +3,34 @@
   "version": "1.0.0",
   "description": "",
   "private": false,
-  "main": "lib/index.js",
+  "main": "src/index.js",
   "scripts": {
-    "build": "babel src -d lib",
+    "start": "webpack-dev-server",
+    "build": "webpack --mode development",
     "copy:css": "cd src && find -name '*.css' -exec cp --parents -prv {} ../lib \\;",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@babel/cli": "^7.6.0",
     "@babel/core": "^7.6.0",
     "@babel/preset-env": "^7.6.0",
     "@babel/preset-react": "^7.0.0",
-    "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
-    "babel-plugin-css-modules-transform": "^1.6.2",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
     "react": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "react-dom": "^16.9.0",
+    "webpack": "^4.40.2",
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.8.1"
   },
   "dependencies": {
+    "css-loader": "^3.2.0",
     "fixed-data-table-2": "^0.8.27",
     "moment": "^2.24.0",
     "react-loading": "^2.0.3",
-    "react-virtualized": "^9.21.1"
+    "react-virtualized": "^9.21.1",
+    "style-loader": "^1.0.0"
   }
 }
