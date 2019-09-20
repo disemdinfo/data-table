@@ -186,7 +186,7 @@ class DataTable extends Component {
       >
         <AutoSizer 
           key="table"
-          onResize={({ width }) => this.setState({ tableWidth: width })}
+          //onResize={({ width }) => this.setState({ tableWidth: width })}
         >
           {({ width }) => (
             <Table
