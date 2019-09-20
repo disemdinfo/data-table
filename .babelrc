@@ -2,7 +2,9 @@
     "presets": ["@babel/preset-react", "@babel/preset-env"],
     "plugins": [
         [
-            "css-modules-transform", {                                                                                
+            "css-modules-transform", {  
+                "camelCase": false,
+                "generateScopedName": "[local]",
                 "extractCss": "./lib/data-table.css"
             }
         ]

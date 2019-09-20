@@ -23,7 +23,7 @@
  * @providesModule fixedDataTableCellGroupLayout
  */
 
- .data-table__fixedDataTableCellGroupLayout_cellGroup___1sCtQ {
+ .fixedDataTableCellGroupLayout_cellGroup {
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
   left: 0;
@@ -33,13 +33,13 @@
   white-space: nowrap;
 }
 
-.data-table__fixedDataTableCellGroupLayout_cellGroup___1sCtQ > .data-table__public_fixedDataTableCell_main___1-1Zs {
+.fixedDataTableCellGroupLayout_cellGroup > .public_fixedDataTableCell_main {
   display: inline-block;
   vertical-align: top;
   white-space: normal;
 }
 
-.data-table__fixedDataTableCellGroupLayout_cellGroupWrapper___1JiqH {
+.fixedDataTableCellGroupLayout_cellGroupWrapper {
   position: absolute;
   top: 0;
 }
@@ -54,7 +54,7 @@
  * @providesModule fixedDataTableCellLayout
  */
 
-.data-table__fixedDataTableCellLayout_main___1vyXt {
+.fixedDataTableCellLayout_main {
   border-right-style: solid;
   border-right-width: 1px;
   border-width: 0 1px 0 0;
@@ -66,47 +66,47 @@
   white-space: normal;
 }
 
-.data-table__fixedDataTableCellLayout_lastChild___3wgJu {
+.fixedDataTableCellLayout_lastChild {
   border-width: 0 1px 1px 0;
 }
 
-.data-table__fixedDataTableCellLayout_alignRight___28tsZ {
+.fixedDataTableCellLayout_alignRight {
   text-align: right;
 }
 
-.data-table__fixedDataTableCellLayout_alignCenter___2_HCj {
+.fixedDataTableCellLayout_alignCenter {
   text-align: center;
 }
 
-.data-table__fixedDataTableCellLayout_wrap1___2Z4ii {
+.fixedDataTableCellLayout_wrap1 {
   display: table;
 }
 
-.data-table__fixedDataTableCellLayout_wrap2___3xBdV {
+.fixedDataTableCellLayout_wrap2 {
   display: table-row;
 }
 
-.data-table__fixedDataTableCellLayout_wrap3___18Xp_ {
+.fixedDataTableCellLayout_wrap3 {
   display: table-cell;
   vertical-align: middle;
 }
 
-.data-table__fixedDataTableCellLayout_columnResizerContainer___1NNTA {
+.fixedDataTableCellLayout_columnResizerContainer {
   position: absolute;
   right: 0px;
   width: 6px;
   z-index: 1;
 }
 
-.data-table__fixedDataTableCellLayout_columnResizerContainer___1NNTA:hover {
+.fixedDataTableCellLayout_columnResizerContainer:hover {
   cursor: ew-resize;
 }
 
-.data-table__fixedDataTableCellLayout_columnResizerContainer___1NNTA:hover .data-table__fixedDataTableCellLayout_columnResizerKnob___2iY6C {
+.fixedDataTableCellLayout_columnResizerContainer:hover .fixedDataTableCellLayout_columnResizerKnob {
   visibility: visible;
 }
 
-.data-table__fixedDataTableCellLayout_columnResizerKnob___2iY6C {
+.fixedDataTableCellLayout_columnResizerKnob {
   position: absolute;
   right: 0px;
   visibility: hidden;
@@ -123,14 +123,14 @@
  * @providesModule fixedDataTableColumnResizerLineLayout
  */
 
-.data-table__fixedDataTableColumnResizerLineLayout_mouseArea___2fEDN {
+.fixedDataTableColumnResizerLineLayout_mouseArea {
   cursor: ew-resize;
   position: absolute;
   right: -5px;
   width: 12px;
 }
 
-.data-table__fixedDataTableColumnResizerLineLayout_main___3QTaK {
+.fixedDataTableColumnResizerLineLayout_main {
   border-right-style: solid;
   border-right-width: 1px;
   -webkit-box-sizing: border-box;
@@ -139,7 +139,7 @@
   z-index: 10;
 }
 
-body[dir="rtl"] .data-table__fixedDataTableColumnResizerLineLayout_main___3QTaK {
+body[dir="rtl"] .fixedDataTableColumnResizerLineLayout_main {
   /* the resizer line is in the wrong position in RTL with no easy fix.
    * Disabling is more useful than displaying it.
    * #167 (github) should look into this and come up with a permanent fix.
@@ -147,7 +147,7 @@ body[dir="rtl"] .data-table__fixedDataTableColumnResizerLineLayout_main___3QTaK 
   display: none !important;
 }
 
-.data-table__fixedDataTableColumnResizerLineLayout_hiddenElem___3mHog {
+.fixedDataTableColumnResizerLineLayout_hiddenElem {
   display: none !important;
 }
 /**
@@ -161,7 +161,7 @@ body[dir="rtl"] .data-table__fixedDataTableColumnResizerLineLayout_main___3QTaK 
  * @providesModule fixedDataTableLayout
  */
 
-.data-table__fixedDataTableLayout_main___391qw {
+.fixedDataTableLayout_main {
   border-style: solid;
   border-width: 1px;
   -webkit-box-sizing: border-box;
@@ -170,19 +170,19 @@ body[dir="rtl"] .data-table__fixedDataTableColumnResizerLineLayout_main___3QTaK 
   position: relative;
 }
 
-.data-table__fixedDataTableLayout_header___1_mLJ,
-.data-table__fixedDataTableLayout_hasBottomBorder___1ZVvA {
+.fixedDataTableLayout_header,
+.fixedDataTableLayout_hasBottomBorder {
   border-bottom-style: solid;
   border-bottom-width: 1px;
 }
 
-.data-table__fixedDataTableLayout_footer___22rlR .data-table__public_fixedDataTableCell_main___1-1Zs {
+.fixedDataTableLayout_footer .public_fixedDataTableCell_main {
   border-top-style: solid;
   border-top-width: 1px;
 }
 
-.data-table__fixedDataTableLayout_topShadow___N9u2F,
-.data-table__fixedDataTableLayout_bottomShadow___7YfLL {
+.fixedDataTableLayout_topShadow,
+.fixedDataTableLayout_bottomShadow {
   height: 4px;
   left: 0;
   position: absolute;
@@ -190,16 +190,16 @@ body[dir="rtl"] .data-table__fixedDataTableColumnResizerLineLayout_main___3QTaK 
   z-index: 1;
 }
 
-.data-table__fixedDataTableLayout_bottomShadow___7YfLL {
+.fixedDataTableLayout_bottomShadow {
   margin-top: -4px;
 }
 
-.data-table__fixedDataTableLayout_rowsContainer___uCE1i {
+.fixedDataTableLayout_rowsContainer {
   overflow: hidden;
   position: relative;
 }
 
-.data-table__fixedDataTableLayout_horizontalScrollbar___1pjQw {
+.fixedDataTableLayout_horizontalScrollbar {
   bottom: 0;
   position: absolute;
 }
@@ -214,7 +214,7 @@ body[dir="rtl"] .data-table__fixedDataTableColumnResizerLineLayout_main___3QTaK 
  * @providesModule fixedDataTableRowLayout
  */
 
-.data-table__fixedDataTableRowLayout_main___3dHAP {
+.fixedDataTableRowLayout_main {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   overflow: hidden;
@@ -222,20 +222,20 @@ body[dir="rtl"] .data-table__fixedDataTableColumnResizerLineLayout_main___3QTaK 
   top: 0;
 }
 
-.data-table__fixedDataTableRowLayout_body___ccxpk {
+.fixedDataTableRowLayout_body {
   left: 0;
   position: absolute;
   top: 0;
 }
 
-.data-table__fixedDataTableRowLayout_rowExpanded___dsvUA {
+.fixedDataTableRowLayout_rowExpanded {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   left: 0;
   position: absolute;
 }
 
-.data-table__fixedDataTableRowLayout_fixedColumnsDivider___1M4rJ {
+.fixedDataTableRowLayout_fixedColumnsDivider {
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
   border-left-style: solid;
@@ -246,16 +246,16 @@ body[dir="rtl"] .data-table__fixedDataTableColumnResizerLineLayout_main___3QTaK 
   width: 0;
 }
 
-.data-table__fixedDataTableRowLayout_columnsShadow___1_xru {
+.fixedDataTableRowLayout_columnsShadow {
   position: absolute;
   width: 4px;
 }
 
-.data-table__fixedDataTableRowLayout_columnsRightShadow___3Nc57 {
+.fixedDataTableRowLayout_columnsRightShadow {
   right: 1px;
 }
 
-.data-table__fixedDataTableRowLayout_rowWrapper___1xivF {
+.fixedDataTableRowLayout_rowWrapper {
   position: absolute;
   top: 0;
 }
@@ -270,7 +270,7 @@ body[dir="rtl"] .data-table__fixedDataTableColumnResizerLineLayout_main___3QTaK 
  * @providesModule ScrollbarLayout
  */
 
-.data-table__ScrollbarLayout_main___3rog4 {
+.ScrollbarLayout_main {
   z-index: 1 !important;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -283,14 +283,14 @@ body[dir="rtl"] .data-table__fixedDataTableColumnResizerLineLayout_main___3QTaK 
           user-select: none;
 }
 
-.data-table__ScrollbarLayout_mainVertical___1PpTj {
+.ScrollbarLayout_mainVertical {
   bottom: 0;
   right: 0;
   top: 0;
   width: 15px;
 }
 
-.data-table__ScrollbarLayout_mainHorizontal___1XwSC {
+.ScrollbarLayout_mainHorizontal {
   bottom: 0;
   height: 15px;
   left: 0;
@@ -299,12 +299,12 @@ body[dir="rtl"] .data-table__fixedDataTableColumnResizerLineLayout_main___3QTaK 
 }
 
 /* Touching the scroll-track directly makes the scroll-track bolder */
-.data-table__ScrollbarLayout_mainHorizontal___1XwSC.data-table__public_Scrollbar_mainActive___2dMUh,
-.data-table__ScrollbarLayout_mainHorizontal___1XwSC:hover {
+.ScrollbarLayout_mainHorizontal.public_Scrollbar_mainActive,
+.ScrollbarLayout_mainHorizontal:hover {
   height: 17px;
 }
 
-.data-table__ScrollbarLayout_face___1w1Zm {
+.ScrollbarLayout_face {
   left: 0;
   overflow: hidden;
   position: absolute;
@@ -323,7 +323,7 @@ body[dir="rtl"] .data-table__fixedDataTableColumnResizerLineLayout_main___3QTaK 
  * we can get the correct `event.offsetX` and `event.offsetY` from the
  * scrollface element while dragging it.
  */
-.data-table__ScrollbarLayout_face___1w1Zm:after {
+.ScrollbarLayout_face:after {
   border-radius: 6px;
   content: '';
   display: block;
@@ -332,39 +332,39 @@ body[dir="rtl"] .data-table__fixedDataTableColumnResizerLineLayout_main___3QTaK 
   transition: background-color 250ms ease;
 }
 
-.data-table__ScrollbarLayout_faceHorizontal___1j5we {
+.ScrollbarLayout_faceHorizontal {
   bottom: 0;
   left: 0;
   top: 0;
 }
 
-.data-table__ScrollbarLayout_faceHorizontal___1j5we:after {
+.ScrollbarLayout_faceHorizontal:after {
   bottom: 4px;
   left: 0;
   top: 4px;
   width: 100%;
 }
 
-.data-table__ScrollbarLayout_faceHorizontal___1j5we.data-table__public_Scrollbar_faceActive___m0RcX:after,
-.data-table__ScrollbarLayout_main___3rog4:hover .data-table__ScrollbarLayout_faceHorizontal___1j5we:after {
+.ScrollbarLayout_faceHorizontal.public_Scrollbar_faceActive:after,
+.ScrollbarLayout_main:hover .ScrollbarLayout_faceHorizontal:after {
   bottom: calc(4px/2);
 }
 
-.data-table__ScrollbarLayout_faceVertical___3_5FP {
+.ScrollbarLayout_faceVertical {
   left: 0;
   right: 0;
   top: 0;
 }
 
-.data-table__ScrollbarLayout_faceVertical___3_5FP:after {
+.ScrollbarLayout_faceVertical:after {
   height: 100%;
   left: 4px;
   right: 4px;
   top: 0;
 }
 
-.data-table__ScrollbarLayout_main___3rog4:hover .data-table__ScrollbarLayout_faceVertical___3_5FP:after,
-.data-table__ScrollbarLayout_faceVertical___3_5FP.data-table__public_Scrollbar_faceActive___m0RcX:after {
+.ScrollbarLayout_main:hover .ScrollbarLayout_faceVertical:after,
+.ScrollbarLayout_faceVertical.public_Scrollbar_faceActive:after {
   left: calc(4px/2);
   right: calc(4px/2);
 }
@@ -383,46 +383,46 @@ body[dir="rtl"] .data-table__fixedDataTableColumnResizerLineLayout_main___3QTaK 
 /**
  * Table.
  */
-.data-table__public_fixedDataTable_main___3rI2w {
+.public_fixedDataTable_main {
   border-color: #d3d3d3;
 }
 
-.data-table__public_fixedDataTable_header___2uMQd,
-.data-table__public_fixedDataTable_hasBottomBorder___MjZYr {
+.public_fixedDataTable_header,
+.public_fixedDataTable_hasBottomBorder {
   border-color: #d3d3d3;
 }
 
-.data-table__public_fixedDataTable_header___2uMQd .data-table__public_fixedDataTableCell_main___1-1Zs {
+.public_fixedDataTable_header .public_fixedDataTableCell_main {
   font-weight: bold;
 }
 
-.data-table__public_fixedDataTable_header___2uMQd,
-.data-table__public_fixedDataTable_scrollbarSpacer___uwBQa,
-.data-table__public_fixedDataTable_header___2uMQd .data-table__public_fixedDataTableCell_main___1-1Zs {
+.public_fixedDataTable_header,
+.public_fixedDataTable_scrollbarSpacer,
+.public_fixedDataTable_header .public_fixedDataTableCell_main {
   background-color: #f6f7f8;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#efefef));
   background-image: linear-gradient(#fff, #efefef);
 }
 
-.data-table__public_fixedDataTable_scrollbarSpacer___uwBQa {
+.public_fixedDataTable_scrollbarSpacer {
   position: absolute;
   z-index: 99;
 }
 
-.data-table__public_fixedDataTable_footer___L0JS0 .data-table__public_fixedDataTableCell_main___1-1Zs {
+.public_fixedDataTable_footer .public_fixedDataTableCell_main {
   background-color: #f6f7f8;
   border-color: #d3d3d3;
 }
 
-.data-table__public_fixedDataTable_topShadow___3tPDz {
+.public_fixedDataTable_topShadow {
   background: 0 0 url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAECAYAAABP2FU6AAAAF0lEQVR4AWPUkNeSBhHCjJoK2twgFisAFagCCp3pJlAAAAAASUVORK5CYII=) repeat-x;
 }
 
-.data-table__public_fixedDataTable_bottomShadow___yt3qF {
+.public_fixedDataTable_bottomShadow {
   background: 0 0 url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAECAYAAABP2FU6AAAAHElEQVQI12MwNjZmZdAT1+Nm0JDWEGZQk1GTBgAWkwIeAEp52AAAAABJRU5ErkJggg==) repeat-x;
 }
 
-.data-table__public_fixedDataTable_horizontalScrollbar___34p6s .data-table__public_Scrollbar_mainHorizontal___3DBef {
+.public_fixedDataTable_horizontalScrollbar .public_Scrollbar_mainHorizontal {
   background-color: #fff;
 }
 /**
@@ -439,29 +439,29 @@ body[dir="rtl"] .data-table__fixedDataTableColumnResizerLineLayout_main___3QTaK 
 /**
  * Table cell.
  */
- .data-table__public_fixedDataTableCell_main___1-1Zs {
+ .public_fixedDataTableCell_main {
   background-color: #fff;
   /* border-color: #d3d3d3; */
   border: 0px; /* edit */
 }
-.data-table__public_fixedDataTableCell_highlighted___oBRw0 {
+.public_fixedDataTableCell_highlighted {
   background-color: #f4f4f4;
 }
 
-.data-table__public_fixedDataTableCell_cellContent___2emfO {
+.public_fixedDataTableCell_cellContent {
   padding: 8px;
 }
 
-.data-table__public_fixedDataTableCell_columnResizerKnob___1kdPJ {
+.public_fixedDataTableCell_columnResizerKnob {
   background-color: #0284ff;
 }
-.data-table__public_fixedDataTableCell_hasReorderHandle___by9uK .data-table__public_fixedDataTableCell_cellContent___2emfO {
+.public_fixedDataTableCell_hasReorderHandle .public_fixedDataTableCell_cellContent {
     margin-left: 12px;
 }
 /**
  * Column reorder goodies.
  */
-.data-table__fixedDataTableCellLayout_columnReorderContainer___3rhUO {
+.fixedDataTableCellLayout_columnReorderContainer {
   border-color: #0284ff;
   background-color: rgba(0,0,0,0.1);
   width: 12px;
@@ -469,7 +469,7 @@ body[dir="rtl"] .data-table__fixedDataTableColumnResizerLineLayout_main___3QTaK 
   float: left;
   cursor: move;
 }
-.data-table__fixedDataTableCellLayout_columnReorderContainer___3rhUO:after {
+.fixedDataTableCellLayout_columnReorderContainer:after {
     content: '::';
     position: absolute;
     top: 50%;
@@ -492,7 +492,7 @@ body[dir="rtl"] .data-table__fixedDataTableColumnResizerLineLayout_main___3QTaK 
 /**
  * Column resizer line.
  */
-.data-table__public_fixedDataTableColumnResizerLine_main___1OQi9 {
+.public_fixedDataTableColumnResizerLine_main {
   border-color: #0284ff;
 }
 /**
@@ -509,24 +509,24 @@ body[dir="rtl"] .data-table__fixedDataTableColumnResizerLineLayout_main___3QTaK 
 /**
  * Table row.
  */
-.data-table__public_fixedDataTableRow_main___2OLUz {
+.public_fixedDataTableRow_main {
   background-color: #fff;
 }
 
-.data-table__public_fixedDataTableRow_highlighted___2g-Qo,
-.data-table__public_fixedDataTableRow_highlighted___2g-Qo .data-table__public_fixedDataTableCell_main___1-1Zs {
+.public_fixedDataTableRow_highlighted,
+.public_fixedDataTableRow_highlighted .public_fixedDataTableCell_main {
   background-color: #f6f7f8;
 }
 
-.data-table__public_fixedDataTableRow_fixedColumnsDivider___3zMRe {
+.public_fixedDataTableRow_fixedColumnsDivider {
   border-color: #d3d3d3;
 }
 
-.data-table__public_fixedDataTableRow_columnsShadow___1Nwjq {
+.public_fixedDataTableRow_columnsShadow {
   background: 0 0 url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAABCAYAAAD5PA/NAAAAFklEQVQIHWPSkNeSBmJhTQVtbiDNCgASagIIuJX8OgAAAABJRU5ErkJggg==) repeat-y;
 }
 
-.data-table__public_fixedDataTableRow_columnsRightShadow___gK8KV {
+.public_fixedDataTableRow_columnsRightShadow {
   -webkit-transform: rotate(180deg);
           transform: rotate(180deg);
 }
@@ -547,24 +547,24 @@ body[dir="rtl"] .data-table__fixedDataTableColumnResizerLineLayout_main___3QTaK 
  */
 
 /* Touching the scroll-track directly makes the scroll-track bolder */
-.data-table__public_Scrollbar_main___3NVM5.data-table__public_Scrollbar_mainActive___2dMUh,
-.data-table__public_Scrollbar_main___3NVM5 {
+.public_Scrollbar_main.public_Scrollbar_mainActive,
+.public_Scrollbar_main {
   background-color: #fff;
   border-left: 1px solid #d3d3d3;
 }
 
-.data-table__public_Scrollbar_mainOpaque___14-yk,
-.data-table__public_Scrollbar_mainOpaque___14-yk.data-table__public_Scrollbar_mainActive___2dMUh,
-.data-table__public_Scrollbar_mainOpaque___14-yk:hover {
+.public_Scrollbar_mainOpaque,
+.public_Scrollbar_mainOpaque.public_Scrollbar_mainActive,
+.public_Scrollbar_mainOpaque:hover {
   background-color: #fff;
 }
 
-.data-table__public_Scrollbar_face___i_PPA:after {
+.public_Scrollbar_face:after {
   background-color: #c2c2c2;
 }
 
-.data-table__public_Scrollbar_main___3NVM5:hover .data-table__public_Scrollbar_face___i_PPA:after,
-.data-table__public_Scrollbar_mainActive___2dMUh .data-table__public_Scrollbar_face___i_PPA:after,
-.data-table__public_Scrollbar_faceActive___m0RcX:after {
+.public_Scrollbar_main:hover .public_Scrollbar_face:after,
+.public_Scrollbar_mainActive .public_Scrollbar_face:after,
+.public_Scrollbar_faceActive:after {
   background-color: #7d7d7d;
 }
