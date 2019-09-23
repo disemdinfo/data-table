@@ -1,23 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import DataTable from './DataTable';
+import ToolBar from './ToolBar';
 import { onExportCsv } from './utils';
 
-const styles = {
-    button: {
-        // color:'#626466',        
-        border: '1px solid #rgba(0,0,0,0.02)',                
-        cursor: 'pointer',
-    }
-};
-
 const ExportDataTable = ({ rows, columns, actions, ...props }) => (    
-    <DataTable
-      {...props}
-      rows={rows}
-      columns={columns}      
-      actions={[<button onClick={() => onExportCsv({ rows, columns })} style={styles.button}>exportar</button>].concat(actions)}
-    /> 
+    <div>      
+      <DataTable
+        {...props}
+        rows={rows}
+        columns={columns}              
+        toolbar={<ToolBar actions={[{ label: 'Exportar', onClick: () => onExportCsv({ rows, columns }) }].concat(actions)}/>}
+      /> 
+    </div>
 );
 
 ExportDataTable.propTypes = {
