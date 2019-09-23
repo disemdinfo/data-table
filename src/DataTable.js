@@ -65,8 +65,7 @@ function getState(props) {
 }
 class DataTable extends Component {
   constructor(props) {
-    super(props);    
-    this.table = React.createRef();    
+    super(props);        
     this.state = getState(props);
 
     this.onSearch = this.onSearch.bind(this);
@@ -178,7 +177,7 @@ class DataTable extends Component {
   render() {    
     const { height, maxHeight, ...props } = this.props;
     const { contentHeight } = this.state;
-    
+
     return (
       <Container
         {...props}

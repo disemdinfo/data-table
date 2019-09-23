@@ -96,7 +96,7 @@ export function format(data, type = '') {
 }
 
 export function renderCell({ column, row }) {
-  const { key, type, cellRenderer } = column;
+  const { key, type, cellRenderer } = column;  
   const value = cellRenderer ? cellRenderer({ row, column }) : get(row, key);
 
   return format(value, type);
@@ -188,13 +188,13 @@ export function onExportCsv({ rows, columns }) {
     const cData = {};
 
     Object.keys(columns).forEach((key) => {
-      const column = columns[key];
+      const column = { ...columns[key], key };
       const { label, csvRenderer, type } = column;
       if (column.columns) {
         Object.keys(column.columns).forEach((key) => {
-          const c = column.columns[key];
+          const c = { ...column.columns[key], key };
           if (c.label) {
-            cData[c.label] = renderCell({ column: c, row, key });
+            cData[c.label] = renderCell({ column: c, row });
           }
         });
       } else if (label) {
@@ -202,7 +202,8 @@ export function onExportCsv({ rows, columns }) {
         if (csvRenderer) {
           value = csvRenderer({ column, row, key });
         } else {
-          value = renderCell({ column, row, key });
+          value = renderCell({ column, row });
+          
           if (typeof value === 'object') {
             value = get(row, column.key);
           }
@@ -212,12 +213,10 @@ export function onExportCsv({ rows, columns }) {
           if (typeof value === 'string') {
             value = value.trim().replace(/\#/g, '');
           }
-        }
-
+        }        
         cData[column.label] = value;
       }
-    });
-    // console.log(cData);
+    });    
     return cData;
   });
   exportCsv(csvData);
