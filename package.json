@@ -3,27 +3,22 @@
   "version": "1.0.0",
   "description": "",
   "private": false,
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "scripts": {
     "start": "webpack-dev-server",
-    "build": "webpack --mode development",
+    "build": "babel src -d lib",
     "copy:css": "cd src && find -name '*.css' -exec cp --parents -prv {} ../lib \\;",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/cli": "^7.6.0",
     "@babel/core": "^7.6.0",
     "@babel/preset-env": "^7.6.0",
     "@babel/preset-react": "^7.0.0",
-    "babel-loader": "^8.0.6",
-    "html-loader": "^0.5.5",
-    "html-webpack-plugin": "^3.2.0",
     "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "webpack": "^4.40.2",
-    "webpack-cli": "^3.3.9",
-    "webpack-dev-server": "^3.8.1"
+    "react-dom": "^16.9.0"
   },
   "dependencies": {
     "css-loader": "^3.2.0",
