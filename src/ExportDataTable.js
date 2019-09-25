@@ -11,7 +11,6 @@ class ExportDataTable extends Component {
 
     this.state = {
       rowsExport: props.rows,
-
     }
 
   }
