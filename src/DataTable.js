@@ -131,7 +131,8 @@ class DataTable extends Component {
 
   renderColumn(column) {
     const { rows } = this.state;
-    const { label, footer } = column;    
+    const { label, footer } = column;  
+    
     return (
       <Column
         {...column}
@@ -153,12 +154,7 @@ class DataTable extends Component {
             onClick={this.props.onClick}
           />
         )}
-        footer={({ columnKey, rows }) => (         
-          <Cell            
-            column={column}  
-            row={{ [columnKey]: footer({ columnKey, rows }) }}                      
-          />          
-        )}
+        footer={({ columnKey }) => footer ? <Cell column={column} row={{ [columnKey]: footer({ columnKey, rows }) }} /> : null}
       />
     );
   }
