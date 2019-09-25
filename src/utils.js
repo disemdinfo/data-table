@@ -2,33 +2,20 @@ import moment from 'moment';
 import get from 'lodash/get';
 
 export function formatInteger(valor) {
-  return parseInt(valor || 0, 0)
-    .toString()
-    .replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  return parseInt(valor || 0, 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 }
 
-export function formatDecimal(n, toFixed) {
-  // return parseFloat(n).toLocaleString('pt-br', { minimumFractionDigits: 2 });
-  return n
-    ? parseFloat(n)
-      .toFixed(toFixed || toFixed === 0 ? toFixed : 2)
-      .replace('.', ',')
-      .replace(/(\d)(?=(\d{3})+\,)/g, '$1.')
-    : n;
+export function formatDecimal(n, toFixed) {  
+  return n ? parseFloat(n).toFixed(toFixed || toFixed === 0 ? toFixed : 2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.') : n;
 }
 
 export function formatDate(date, mask) {
-  return moment(
-    moment(date)
-      ._i.toString()
-      .slice(0, 10),
-  ).format(mask || 'DD/MM/YYYY');
+  return moment(moment(date)._i.toString().slice(0, 10)).format(mask || 'DD/MM/YYYY');
 }
 
 export function formatDateTime(date) {
-  return moment(date)
-    .add('hour', 3)
-    .format('DD/MM/YYYY HH:mm');
+  // return moment(date).add('hour', 3).format('DD/MM/YYYY HH:mm');
+  return moment(date).format('DD/MM/YYYY HH:mm');
 }
 
 export function formatCurrency(value, decimals) {
@@ -64,9 +51,8 @@ export function removeSymbols(input) {
     N: /\xD1/g,
   };
 
-    // eslint-disable-next-line
-          for (const c in map) {
-
+    
+  for (const c in map) {
     const regex = map[c];
     output = output.replace(regex, c);
   }
@@ -164,10 +150,7 @@ export function exportCsv(data, filename = 'data-csv') {
       .map((k) => {
         const v = d[k];
         if (v === null || v === undefined) return '';
-        return v
-          .toString()
-          .replace(/;/g, ' ')
-          .replace(/[\n\r]+/g, '');
+        return v.toString().replace(/;/g, ' ').replace(/[\n\r]+/g, '');
       })
       .join(';')};\r\n`;
   });
@@ -194,7 +177,7 @@ export function onExportCsv({ rows, columns }, callback) {
         Object.keys(column.columns).forEach((key) => {
           const c = { ...column.columns[key], key };
           if (c.label) {
-            cData[c.label] = renderCell({ column: c, row });
+            cData[c.label] = cellRenderer({ column: c, row });
           }
         });
       } else if (label) {
@@ -202,7 +185,7 @@ export function onExportCsv({ rows, columns }, callback) {
         if (csvRenderer) {
           value = csvRenderer({ column, row, key });
         } else {
-          value = renderCell({ column, row });
+          value = cellRenderer({ column, row });
           
           if (typeof value === 'object') {
             value = get(row, column.key);

@@ -11,13 +11,13 @@ class ExportDataTable extends Component {
 
     this.state = {
       rowsExport: props.rows,
-      disabled: false
+
     }
 
   }
   render(){
     const { rows, columns, title, actions, ...props } = this.props;
-    const { rowsExport, disabled } = this.state;
+    const { rowsExport } = this.state;
     
     return(    
       <div>      
@@ -31,8 +31,7 @@ class ExportDataTable extends Component {
             title={title} 
             actions={[{ 
               label: 'Exportar', 
-              disabled,
-              onClick: () => onExportCsv({ rows: rowsExport, columns }, () => this.setState({ disabled: false }))
+              onClick: () => onExportCsv({ rows: rowsExport, columns })
             }].concat(actions)}/>
           }
         /> 

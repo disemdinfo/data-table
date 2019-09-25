@@ -6,7 +6,7 @@ import clone from 'lodash/clone';
 import Container from './Container';
 import Header from './Header';
 import Cell from './Cell';
-import { getColumns, filter, sort } from './utils';
+import { getColumns, filter, sort, onExportCsv } from './utils';
 import './data-table.css';
 
 function prepareColumn({ columns, column, key, props, tableWidth }) {    
