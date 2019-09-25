@@ -13,6 +13,7 @@ function prepareColumn({ columns, column, key, props, tableWidth }) {
   return {
     ...column,
     key,
+    columnKey: key,
     type: column.type || 'STRING',
     width: column.width || (tableWidth ? tableWidth / Object.keys(columns).length : 100),
     flexGrow: !column.width ? 1 : null,
@@ -66,8 +67,12 @@ function getState(props) {
 class DataTable extends Component {
   constructor(props) {
     super(props);        
+    const { getRows } = props;
+
     this.state = getState(props);
 
+    if(getRows) getRows(this.state.rows)
+      
     this.onSearch = this.onSearch.bind(this);
     this.onSort = this.onSort.bind(this);
     this.renderGroup = this.renderGroup.bind(this);
@@ -75,14 +80,14 @@ class DataTable extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { rows, columns } = nextProps;
+    const { rows, getRows, columns } = nextProps;
     
     if (columns !== this.props.columns) {
       this.setState(getState(nextProps));
     }
 
     if (rows !== this.props.rows) {
-      this.setState(getState(nextProps));
+      this.setState(getState(nextProps), () => getRows ? getRows(this.state.rows) : null);
     }
   }
 
@@ -94,13 +99,14 @@ class DataTable extends Component {
   // }
 
   onSearch({ value, column }) {
+    const { getRows } = this.props;
     const { startRows } = this.state;
     const columns = getColumns(this.state.columns);
     column.searchValue = value;
     const filteredColumns = Object.keys(columns).filter(key => columns[key].searchValue).map(key => columns[key]);
 
     const data = filter(startRows.slice(), filteredColumns);
-    this.setState({ rows: data });
+    this.setState({ rows: data }, () => getRows ? getRows(this.state.rows) : null);
   }
 
   onSort(column) {
@@ -132,7 +138,7 @@ class DataTable extends Component {
 
   renderColumn(column) {
     const { rows } = this.state;
-    const { label } = column;    
+    const { label, footer } = column;    
     return (
       <Column
         {...column}
@@ -153,15 +159,13 @@ class DataTable extends Component {
             column={column}
             onClick={this.props.onClick}
           />
-
         )}
-        footer={({ columnKey }) => (
-          column.sum &&
-          <Cell
-            total
-            column={column}
-            row={{ [columnKey]: rows.reduce((a, b) => a + b[columnKey], 0) }}
-          />
+        footer={({ columnKey, rows }) => (         
+          <Cell            
+            column={column}  
+            row={{ [columnKey]: footer({ columnKey, rows }) }}          
+            //row={{ [columnKey]: rows.reduce((a, b) => a + b[columnKey], 0) }}
+          />          
         )}
       />
     );

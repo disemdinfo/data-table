@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Cell } from 'fixed-data-table-2';
 import { renderCell } from './utils';
 
-const styles = {
+export const styles = {
   column: {
     display: 'flex',
     alignItems: 'center',
@@ -38,14 +38,14 @@ function getStyle({ column, columnKey, row, rowIndex, value, onClick  }) {
   return style;
 }
 
-const TableCell = ({ columnKey, rowIndex, column, row, ...props }) => {
+const TableCell = ({ column, row, ...props }) => {
   const onClick = column.onClick || props.onClick;
   const value = renderCell({ column, row });
   return (
     <Cell
       {...props}
-      style={getStyle({ column, row, value, rowIndex, columnKey, onClick })}
-      onClick={() => (onClick ? onClick({ row, rowIndex, column, columnKey }) : null)}
+      style={getStyle({ column, row, value, onClick, ...props })}
+      onClick={() => (onClick ? onClick({ column, row, ...props }) : null)}
     >
       {value}
     </Cell>

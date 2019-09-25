@@ -183,7 +183,7 @@ export function exportCsv(data, filename = 'data-csv') {
   });
 }
 
-export function onExportCsv({ rows, columns }) {
+export function onExportCsv({ rows, columns }, callback) {
   const csvData = rows.map((row) => {
     const cData = {};
 
@@ -220,5 +220,6 @@ export function onExportCsv({ rows, columns }) {
     return cData;
   });
   exportCsv(csvData);
+  if(callback) callback();
 }
 

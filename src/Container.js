@@ -17,8 +17,13 @@ const Loading = () => <div style={styles.loading}><ReactLoading type="spin" colo
 
 const Container = (props) => {
   const { children, width, height, style, loading, toolbar } = props;  
+  let toolbarHeight = 0;
+  const element = document.getElementById('toolbar');
+  if(element){
+    toolbarHeight = element.clientHeight;    
+  }
   return (
-    <div style={{ ...style, width, height }}>             
+    <div style={{ ...style, width, height: height + toolbarHeight }}>             
       {loading ? 
         <Loading /> : 
         <div>

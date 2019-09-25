@@ -3,18 +3,25 @@ import ReactLoading from 'react-loading';
 
 const styles = {
   container: {
-    width: '100%'
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    paddingBottom: 4,
+    color:'#626466',
   },
   actions: {
     display: 'flex',
     alignItems: 'flex-end',
     justifyContent: 'flex-end' ,
+    width: '100%',      
+  },
+  title: {
     width: '100%',
-    marginBottom: 4    
+    //marginLeft: 6,           
+    //color:'#626466',    
   },
   action: {
-    marginLeft: 6,           
-    color:'#626466',    
+    marginLeft: 6,               
   },
   button: {
     color:'#626466',        
@@ -25,16 +32,18 @@ const styles = {
 
 const ToolBar = (props) => {
   const { title, actions } = props;  
+  
   return (
-    <div style={styles.container}>        
+    <div style={styles.container} id="toolbar">
+        <div style={styles.title}>{title}</div>
         <div style={styles.actions}>
-            {actions.map((action) => {
-                let a = action;
-                if(typeof action === 'object'){
+            {actions.map((action, i) => {
+                let a = action;                
+                if(typeof a === 'object' && !React.isValidElement(a)){                    
                     const { label, ...props } = action;
-                    a = <button style={styles.button} {...props}>{label}</button>
+                    a = <button key={i} style={styles.button} {...props}>{label}</button>
                 }
-                return <div style={styles.action}>{a}</div>
+                return <div key={i} style={styles.action}>{a}</div>
             })}
         </div>      
     </div>
