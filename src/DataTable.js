@@ -91,13 +91,6 @@ class DataTable extends Component {
     }
   }
 
-  // componentDidUpdate(){
-  //   const { ok, tableWidth } = this.state;
-  //   if(!ok){      
-  //     this.setState({ ok: true, ...getState(this.props, tableWidth) })
-  //   }    
-  // }
-
   onSearch({ value, column }) {
     const { getRows } = this.props;
     const { startRows } = this.state;

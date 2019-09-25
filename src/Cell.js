@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Cell } from 'fixed-data-table-2';
-import { renderCell } from './utils';
+import { cellRenderer } from './utils';
 
 export const styles = {
   column: {
@@ -40,7 +40,7 @@ function getStyle({ column, columnKey, row, rowIndex, value, onClick  }) {
 
 const TableCell = ({ column, row, ...props }) => {
   const onClick = column.onClick || props.onClick;
-  const value = renderCell({ column, row });
+  const value = cellRenderer({ column, row });
   return (
     <Cell
       {...props}

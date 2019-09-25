@@ -95,9 +95,9 @@ export function format(data, type = '') {
   return data || '';
 }
 
-export function renderCell({ column, row }) {
-  const { key, type, cellRenderer } = column;  
-  const value = cellRenderer ? cellRenderer({ row, column }) : get(row, key);
+export function cellRenderer({ column, row }) {
+  const { key, type } = column;  
+  const value = column.cellRenderer ? column.cellRenderer({ row, column }) : get(row, key);
 
   return format(value, type);
 }
