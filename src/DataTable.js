@@ -156,8 +156,7 @@ class DataTable extends Component {
         footer={({ columnKey, rows }) => (         
           <Cell            
             column={column}  
-            row={{ [columnKey]: footer({ columnKey, rows }) }}          
-            //row={{ [columnKey]: rows.reduce((a, b) => a + b[columnKey], 0) }}
+            row={{ [columnKey]: footer({ columnKey, rows }) }}                      
           />          
         )}
       />

@@ -37,14 +37,7 @@ const ToolBar = (props) => {
     <div style={styles.container} id="toolbar">
         <div style={styles.title}>{title}</div>
         <div style={styles.actions}>
-            {actions.map((action, i) => {
-                let a = action;                
-                if(typeof a === 'object' && !React.isValidElement(a)){                    
-                    const { label, ...props } = action;
-                    a = <button key={i} style={styles.button} {...props}>{label}</button>
-                }
-                return <div key={i} style={styles.action}>{a}</div>
-            })}
+            {actions.map((action, i) => <div key={i} style={styles.action}>{action}</div>)}
         </div>      
     </div>
   );

@@ -10,28 +10,25 @@ class ExportDataTable extends Component {
     super(props);
 
     this.state = {
-      rowsExport: props.rows,
+      exportedRows: props.rows,
     }
 
   }
   render(){
-    const { rows, columns, title, actions, ...props } = this.props;
-    const { rowsExport } = this.state;
+    const { rows, columns, title, actions, ExportComponet, getRows, ...props } = this.props;    
     
     return(    
-      <div>      
+      <div>  
+          
         <DataTable
           {...props}
           rows={rows}
           columns={columns}              
-          getRows={r => this.setState({ rowsExport: r })}
+          getRows={exportedRows => this.setState({ exportedRows }, () => getRows(exportedRows))}
           toolbar={
             <ToolBar 
             title={title} 
-            actions={[{ 
-              label: 'Exportar', 
-              onClick: () => onExportCsv({ rows: rowsExport, columns })
-            }].concat(actions)}/>
+            actions={[ExportComponet ? <ExportComponet onClick={() => onExportCsv({ rows: this.state.exportedRows, columns })} /> : null].concat(actions)}/>
           }
         /> 
       </div>
