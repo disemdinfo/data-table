@@ -156,7 +156,7 @@ class DataTable extends Component {
             onClick={this.props.onClick}
           />
         )}
-        footer={({ columnKey }) => (footer ? <Cell column={column} row={{ [columnKey]: footer({ columnKey, rows }) }} /> : null)}
+        footer={({ columnKey }) => (footer ? <Cell column={{ ...column, cellRenderer: null }} row={{ [columnKey]: footer({ columnKey, rows }) }} /> : null)}
       />
     );
   }
