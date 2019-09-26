@@ -1,13 +1,10 @@
-//import React from 'react';
-//import ReactDOM from 'react-dom';
 import DataTable from './DataTable';
 import ExportDataTable from './ExportDataTable';
 import ToolBar from './ToolBar';
 import { onExportCsv } from './utils';
 
-export { DataTable, ToolBar, onExportCsv };
-
-//ReactDOM.render(<DataTable columns={{ a: { label: 'A' } }} rows={[{ a: 'xxx' }, { a: 'yyy' }]} />, document.getElementById('root'));
+export { ToolBar, onExportCsv };
+export default DataTable;
 
 // "@babel/cli": "^7.6.0",
 // "@babel/core": "^7.6.0",
