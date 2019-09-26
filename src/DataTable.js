@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Table, ColumnGroup, Column } from 'fixed-data-table-2';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
+import ReactLoading from 'react-loading';
 import clone from 'lodash/clone';
-import Container from './Container';
 import Header from './Header';
 import Cell from './Cell';
-import { getColumns, filter, sort, onExportCsv } from './utils';
+import { getColumns, filter, sort } from './utils';
 import './data-table.css';
 
-function prepareColumn({ columns, column, key, props, tableWidth }) {    
+function prepareColumn({ columns, column, key, props, tableWidth }) {
   return {
     ...column,
     key,
@@ -27,33 +27,33 @@ function prepareColumns({ columns, ...props }) {
 
   Object.keys(columns).filter(key => columns[key].hide !== true).forEach((key) => {
     const column = columns[key];
-    cols[key] = prepareColumn({ columns, column, key, ...props});
+    cols[key] = prepareColumn({ columns, column, key, ...props });
   });
 
   return cols;
 }
 
 function prepareGroupColumns({ columns, ...props }) {
-  const cols = {};  
+  const cols = {};
   Object.keys(columns).filter(key => columns[key].hide !== true).forEach((key) => {
     let column = columns[key];
 
     if (column.columns) {
-      column.columns = prepareColumns({ columns : column.columns, ...props });
+      column.columns = prepareColumns({ columns: column.columns, ...props });
     } else {
       column = { columns: { [key]: prepareColumn({ columns, column, key, ...props }) } };
     }
 
     cols[key] = prepareColumn({ columns, column, key, ...props });
-  });  
+  });
   return cols;
 }
 
 function getState(props) {
-  const { rows, columns } = props;  
+  const { rows, columns } = props;
   const hasGroup = Object.keys(columns).some(key => columns[key].columns);
-  const cols = clone(hasGroup ? prepareGroupColumns({columns, props}) : prepareColumns({columns, props }));
-  
+  const cols = clone(hasGroup ? prepareGroupColumns({ columns, props }) : prepareColumns({ columns, props }));
+
   return {
     columns: cols,
     startColumns: cols,
@@ -64,15 +64,17 @@ function getState(props) {
     },
   };
 }
+
+const Loading = () => <div style={{ marginTop: 20, display: 'flex', justifyContent: 'center' }}><ReactLoading type="spin" color="#626466" height={50} width={50} /></div>;
 class DataTable extends Component {
   constructor(props) {
-    super(props);        
+    super(props);
     const { getRows } = props;
 
     this.state = getState(props);
 
-    if(getRows) getRows(this.state.rows)
-      
+    if (getRows) getRows(this.state.rows);
+
     this.onSearch = this.onSearch.bind(this);
     this.onSort = this.onSort.bind(this);
     this.renderGroup = this.renderGroup.bind(this);
@@ -81,13 +83,13 @@ class DataTable extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { rows, getRows, columns } = nextProps;
-    
+
     if (columns !== this.props.columns) {
       this.setState(getState(nextProps));
     }
 
     if (rows !== this.props.rows) {
-      this.setState(getState(nextProps), () => getRows ? getRows(this.state.rows) : null);
+      this.setState(getState(nextProps), () => (getRows ? getRows(this.state.rows) : null));
     }
   }
 
@@ -99,7 +101,7 @@ class DataTable extends Component {
     const filteredColumns = Object.keys(columns).filter(key => columns[key].searchValue).map(key => columns[key]);
 
     const data = filter(startRows.slice(), filteredColumns);
-    this.setState({ rows: data }, () => getRows ? getRows(this.state.rows) : null);
+    this.setState({ rows: data }, () => (getRows ? getRows(this.state.rows) : null));
   }
 
   onSort(column) {
@@ -131,8 +133,8 @@ class DataTable extends Component {
 
   renderColumn(column) {
     const { rows } = this.state;
-    const { label, footer } = column;  
-    
+    const { label, footer } = column;
+
     return (
       <Column
         {...column}
@@ -147,50 +149,48 @@ class DataTable extends Component {
         }
         cell={({ rowIndex, ...cellProps }) => (
           <Cell
-            {...cellProps}        
+            {...cellProps}
             rowIndex={rowIndex}
             row={rows[rowIndex]}
             column={column}
             onClick={this.props.onClick}
           />
         )}
-        footer={({ columnKey }) => footer ? <Cell column={column} row={{ [columnKey]: footer({ columnKey, rows }) }} /> : null}
+        footer={({ columnKey }) => (footer ? <Cell column={column} row={{ [columnKey]: footer({ columnKey, rows }) }} /> : null)}
       />
     );
   }
 
-  renderColumns() {    
+  renderColumns() {
     const { columns, config: { hasGroup } } = this.state;
     const render = hasGroup ? this.renderGroup : this.renderColumn;
 
     return Object.keys(columns).map(key => render(columns[key]));
   }
 
-  render() {    
-    const { height, maxHeight, ...props } = this.props;
+  render() {
+    const { width, height, maxHeight, toolbar, loading } = this.props;
     const { contentHeight } = this.state;
 
     return (
-      <Container
-        {...props}
-        height={height || (contentHeight < maxHeight ? contentHeight : maxHeight)}
-      >
-        <AutoSizer 
-          key="table"
-          //onResize={({ width }) => this.setState({ tableWidth: width })}
-        >
-          {({ width }) => (
-            <Table
-              {...this.props}
-              width={width}
-              rowsCount={this.state.rows.length}
-              onContentHeightChange={h => this.setState({ contentHeight: h })}              
-            >
-              {this.renderColumns()}
-            </Table>
-          )}
-        </AutoSizer>
-      </Container>
+      <div style={{ width, marginLeft: 'auto', marginRight: 'auto' }}>
+        {toolbar}
+        <div style={{ height: height || (contentHeight < maxHeight ? contentHeight : maxHeight) }} >
+          {loading ? <Loading /> :
+          <AutoSizer key="table">
+              {({ width }) => (
+              <Table
+                  {...this.props}
+                  width={width}
+                  rowsCount={this.state.rows.length}
+                  onContentHeightChange={h => this.setState({ contentHeight: h })}
+                >
+                  {this.renderColumns()}
+                </Table>
+              )}
+            </AutoSizer>}
+        </div>
+      </div>
     );
   }
 }
@@ -201,6 +201,10 @@ DataTable.propTypes = {
   onClick: PropTypes.func,
   maxHeight: PropTypes.number,
   height: PropTypes.number,
+  width: PropTypes.string,
+  toolbar: PropTypes.node,
+  loading: PropTypes.bool,
+  getRows: PropTypes.func,
 };
 
 DataTable.defaultProps = {
@@ -210,6 +214,10 @@ DataTable.defaultProps = {
   headerHeight: 70,
   rowHeight: 40,
   groupHeaderHeight: 40,
+  width: '100%',  
+  toolbar: null,
+  loading: false,
+  getRows: null,
   onClick: null,
 };
 
