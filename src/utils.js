@@ -101,24 +101,24 @@ export const filter = (initialRows, filteredColumns) => {
 };
 
 export function sort(array, key, direction) {
+  console.log(array, key, direction)
   const ajuste = direction ? 1 : -1;
   const superior = 1 * ajuste;
   const inferior = -1 * ajuste;
-
-  // eslint-disable-next-line
-    array.sort((a, b) => {
-
+  
+  array.sort((a, b) => {    
     let valueA = get(a, key);
     let valueB = get(b, key);
 
-    if (valueA === undefined) return inferior;
-    if (valueB === undefined) return inferior;
-
+    if (!valueA && valueB) return inferior;
+    if (!valueB && valueA) return superior;
+    if (!valueA && !valueB) return superior;
+    
     if (Number(valueA)) {
       valueA = Number(valueA);
       valueB = Number(valueB);
     }
-
+    
     return valueA > valueB ? superior : inferior;
   });
 
