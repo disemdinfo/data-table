@@ -44,7 +44,7 @@ const TableCell = ({ column, row, ...props }) => {
   return (
     <Cell
       {...props}
-      style={getStyle({ column, row, value, onClick, ...props })}
+      style={getStyle({  ...props, column, row, value, onClick })}
       onClick={() => (onClick ? onClick({ column, row, ...props }) : null)}
     >
       {value}
