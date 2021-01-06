@@ -56,12 +56,15 @@ const Loading = () => <div style={{ marginTop: 20, display: 'flex', justifyConte
 class DataTable extends Component {
   constructor(props) {
     super(props);
+    const { getRows, columns, rows } = props;
 
-    this.startRows = props.rows;
-    
+    this.state = {
+      columns: this.getColumns({ columns }),
+      startRows: rows
+    }
+
     this.state = this.getState(props);
-    
-    const { getRows } = props;
+
     if (getRows) getRows(this.state.rows);
 
     this.onSearch = this.onSearch.bind(this);
@@ -83,33 +86,41 @@ class DataTable extends Component {
     }
   }
 
+  getColumns(params){
+    const { columns } = params;
+    const hasGroup = Object.keys(columns).some(key => columns[key].columns);
+    return clone(hasGroup ? prepareGroupColumns({ columns, params }) : prepareColumns({ columns, params }));
+  }
+
   getState(params) {
     const { rows, columns } = params;
     const hasGroup = Object.keys(columns).some(key => columns[key].columns);
-    const cols = clone(hasGroup ? prepareGroupColumns({ columns, params }) : prepareColumns({ columns, params }));
+    // const columns = this.getColumns(params);
   
     return {
-      columns: cols,
-      rows: this.getFilteredRows({ columns: cols }),
+      // columns,
+      // startColumns: columns,
+      ...this.state,
+      rows: this.getFilteredRows({}),
+      startRows: rows.slice(),
       config: {
         hasGroup,
       },
     };
   }
 
-  getFilteredRows({ value, column, columns }) {
-    const { startRows } = this;
-    const cols = getColumns(columns);
+  getFilteredRows({ value, column }) {
+    const { startRows } = this.state;
+    const columns = getColumns(this.state.columns);
     if(column) column.searchValue = value;
-    const filteredColumns = Object.keys(cols).filter(key => cols[key].searchValue).map(key => cols[key]);
+    const filteredColumns = Object.keys(columns).filter(key => columns[key].searchValue).map(key => columns[key]);
     const data = filter(startRows.slice(), filteredColumns);
     return data;
   }
 
   onSearch({ value, column }) {
     const { getRows } = this.props;
-    const { columns } = this.state;
-    const data = this.getFilteredRows({ value, column, columns });
+    const data = this.getFilteredRows({ value, column });
     this.setState({ rows: data }, () => (getRows ? getRows(this.state.rows) : null));
   }
 
