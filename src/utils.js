@@ -93,7 +93,7 @@ export const filter = (initialRows, filteredColumns) => {
   const rows = initialRows;
 
   return rows.filter(row => filteredColumns.every((column) => {
-    const searchValue = column.searchValue;
+    const searchValue = column.searchValue.toString();
     const value = get(row, column.key);
     const regex = new RegExp(removeSymbols(searchValue), 'ig');
     return regex.test(removeSymbols(format(value, column.type).toString()));
