@@ -125,7 +125,7 @@ export function sort(array, key, direction) {
   return array;
 }
 
-export function getColumns(c) {
+export function getColumnsGroup(c) {
   const columns = {};
   Object.keys(c).forEach((key) => {
     const column = c[key];

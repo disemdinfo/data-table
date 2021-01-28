@@ -49,18 +49,29 @@ function prepareGroupColumns({ columns, ...props }) {
   return cols;
 }
 
-const Loading = () => <div style={{ marginTop: 20, display: 'flex', justifyContent: 'center' }}><ReactLoading type="spin" color="#626466" height={50} width={50} /></div>;
+function getState(props) {
+  const { rows } = props;
+  const hasGroup = Object.keys(props.columns).some(key => props.columns[key].columns);
+  const columns = clone(hasGroup ? prepareGroupColumns({ columns: props.columns, props }) : prepareColumns({ columns: props.columns, props }));
 
+  return {
+    columns,
+    // startColumns: columns,
+    rows,
+    startRows: rows.slice(),
+    config: {
+      hasGroup,
+    },
+  };
+}
+
+const Loading = () => <div style={{ marginTop: 20, display: 'flex', justifyContent: 'center' }}><ReactLoading type="spin" color="#626466" height={50} width={50} /></div>;
 class DataTable extends Component {
   constructor(props) {
     super(props);
-    const { rows, columns, getRows } = props;
+    const { getRows } = props;
 
-    this.startRows = rows.slice();
-    this.columns = this.getColumns(props);
-    this.state = {
-      rows: this.getRows()
-    };
+    this.state = getState(props);
 
     if (getRows) getRows(this.state.rows);
 
@@ -71,46 +82,32 @@ class DataTable extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { rows, getRows } = nextProps;
+    const { rows, getRows, columns } = nextProps;
+
+    if (columns !== this.props.columns) {
+      this.setState(getState(nextProps));
+    }
 
     if (rows !== this.props.rows) {
-      this.startRows = rows.slice();
-      this.columns = this.getColumns(nextProps);
-      this.setState({ rows: this.getRows() }, () => (getRows ? getRows(this.state.rows) : null));
+      this.setState(getState(nextProps), () => (getRows ? getRows(this.state.rows) : null));
     }
   }
 
-  getColumns(props){
-    this.hasGroup = Object.keys(props.columns).some(key => props.columns[key].columns);
-    const columns = clone(this.hasGroup ? prepareGroupColumns({ columns: props.columns, props }) : prepareColumns({ columns: props.columns, props }));
-    return columns;
-  }
-
-  getFilteredColumns(){
-    const columns = getColumnsGroup(this.columns);
-    const filteredColumns = Object.keys(columns).filter(key => columns[key].searchValue).map(key => columns[key]);
-    return filteredColumns;
-  }
-
-  getFilteredRows(){
-    const filteredColumns = this.getFilteredColumns();
-    return filter(this.startRows.slice(), filteredColumns);
-  }
-
-  getRows() {
-    return this.getFilteredRows();
-  }
-
   onSearch({ value, column }) {
-    const { getRows } = this.props; 
-    column.searchValue = value;    
-    this.setState({ rows: this.getRows() }, () => (getRows ? getRows(this.state.rows) : null));
+    const { getRows } = this.props;
+    const { startRows } = this.state;
+    const columns = getColumnsGroup(this.state.columns);
+    column.searchValue = value;
+    const filteredColumns = Object.keys(columns).filter(key => columns[key].searchValue).map(key => columns[key]);
+
+    const data = filter(startRows.slice(), filteredColumns);
+    this.setState({ rows: data }, () => (getRows ? getRows(this.state.rows) : null));
   }
 
   onSort(column) {
     if (column.sortable === false) return;
-    const { columns, state } = this;
-    const { rows } = state;
+
+    const { columns, rows } = this.state;
 
     column.sorted = !column.sorted;
     Object.keys(columns).forEach((key) => {
@@ -165,8 +162,8 @@ class DataTable extends Component {
   }
 
   renderColumns() {
-    const { columns } = this;
-    const render = this.hasGroup ? this.renderGroup : this.renderColumn;
+    const { columns, config: { hasGroup } } = this.state;
+    const render = hasGroup ? this.renderGroup : this.renderColumn;
 
     return Object.keys(columns).map(key => render(columns[key]));
   }
